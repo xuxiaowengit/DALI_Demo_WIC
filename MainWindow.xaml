@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:DALI_Demo_WIC"
         mc:Ignorable="d"
         Title="DALI 灯光控制调试工具" Height="600" Width="1000"
-        WindowStartupLocation="CenterScreen"  >
+         Background="#E0E0E0"
+        WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterScreen" Icon="/最新居中透明原LOGO.png">
+    <!--BorderThickness="1"-->
+
+    <!-- 窗口背景：使用系统默认窗口背景色 -->
+    <!-- 控件背景：定义在TechStyles.xaml资源字典中 -->
 
     <Window.Resources>
         <ResourceDictionary>
@@ -16,19 +22,21 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Margin="10">
+    <Grid Margin="10" Background="{StaticResource WindowBackgroundBrush}"  >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="487*"/>
+            <ColumnDefinition Width="490*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2.427"/>
+            <RowDefinition Height="137.073"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- 串口设置区域 -->
-        <GroupBox Header="串口设置" Grid.Column="0" Grid.Row="0" Margin="5" Style="{StaticResource TechGroupBox}">
+        <GroupBox Header="串口设置" Grid.Column="1" Grid.Row="1" Margin="2,3,5,4" Style="{StaticResource TechGroupBox}">
             <StackPanel Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="端口:" Width="80"/>
@@ -37,7 +45,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <Label Content="波特率:" Width="80"/>
-                    <ComboBox x:Name="cmbBaudRate" Width="120" Style="{StaticResource TechComboBox}">
+                    <ComboBox x:Name="cmbBaudRate" Width="120" Style="{StaticResource TechComboBox}"  SelectedIndex="0">
                         <ComboBoxItem Content="9600"/>
                         <ComboBoxItem Content="19200"/>
                         <ComboBoxItem Content="38400"/>
@@ -49,64 +57,64 @@
         </GroupBox>
 
         <!-- 报文格式设置区域 -->
-        <GroupBox Header="报文格式设置" Grid.Column="1" Grid.Row="0" Margin="5" Style="{StaticResource TechGroupBox}">
+        <GroupBox Header="报文格式设置" Grid.Column="2" Grid.Row="1" Margin="5,3,5,4" Style="{StaticResource TechGroupBox}">
             <StackPanel Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="设备ID:" Width="80"/>
-                    <TextBox x:Name="txtDeviceID" Width="50" MaxLength="2" Style="{StaticResource TechTextBox}"/>
-                    <Label Content="功能码:" Width="80" Margin="10,0,0,0"/>
-                    <TextBox x:Name="txtFunctionCode" Width="50" MaxLength="2" Style="{StaticResource TechTextBox}"/>
+                    <TextBox x:Name="txtDeviceID" Width="50" MaxLength="2" Text="01"  Style="{StaticResource TechTextBox}"/>
+                    <Label Content="功能码:" Width="80" Margin="10,0,0,0"/> 
+                    <TextBox x:Name="txtFunctionCode" Width="50" MaxLength="2"   Text="10" Style="{StaticResource TechTextBox}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Label Content="灯号:" Width="80"/>
-                    <TextBox x:Name="txtLampNumber" Width="100" MaxLength="4" Style="{StaticResource TechTextBox}"/>
+                    <Label Content="灯短地址:" Width="80"/>
+                    <TextBox x:Name="txtLampNumber" Width="100" MaxLength="4"  Text="01" Style="{StaticResource TechTextBox}"/>
                     <Label Content="参数数量:" Width="80" Margin="10,0,0,0"/>
-                    <TextBox x:Name="txtParamCount" Width="100" MaxLength="4" Style="{StaticResource TechTextBox}"/>
+                    <TextBox x:Name="txtParamCount" Width="100" MaxLength="4"  Text="07" Style="{StaticResource TechTextBox}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Label Content="参数字节数:" Width="80"/>
-                    <TextBox x:Name="txtByteCount" Width="50" MaxLength="2" Style="{StaticResource TechTextBox}"/>
+                    <Label Content="参数字节总数:" Width="80"/>
+                    <TextBox x:Name="txtByteCount" Width="50" MaxLength="2"  Text="0E" Style="{StaticResource TechTextBox}"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
 
         <!-- 灯光参数设置区域 -->
-        <GroupBox Header="灯光参数设置" Grid.Column="0" Grid.Row="1" Margin="5" Style="{StaticResource TechGroupBox}">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <GroupBox Header="灯光参数设置" Grid.Column="1" Grid.Row="2" Margin="2,6,5,5" Style="{StaticResource TechGroupBox}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Orientation="Vertical" Margin="5">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="渐变:" Width="80"/>
-                        <Slider x:Name="sliderFade" Minimum="0" Maximum="15" Width="200" Style="{StaticResource TechSlider}"/>
-                        <TextBox x:Name="txtFade" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
+                        <Slider x:Name="sliderFade" Minimum="0" Maximum="15" Width="200" Style="{StaticResource TechSlider}"   Value="{Binding ElementName=txtFade, Path=Text, UpdateSourceTrigger=PropertyChanged}" ValueChanged="sliderFade_ValueChanged"/>
+                        <TextBox x:Name="txtFade" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}" TextChanged="txtFade_TextChanged"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <Label Content="亮度:" Width="80"/>
-                        <Slider x:Name="sliderBrightness" Minimum="0" Maximum="254" Width="200" Style="{StaticResource TechSlider}"/>
+                        <Slider x:Name="sliderBrightness" Minimum="0" Maximum="254" Width="200"   Value="{Binding ElementName=txtBrightness, Path=Text, UpdateSourceTrigger=PropertyChanged}"   Style="{StaticResource TechSlider}" ValueChanged="sliderBrightness_ValueChanged"/>
                         <TextBox x:Name="txtBrightness" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <Label Content="色温:" Width="80"/>
-                        <Slider x:Name="sliderColorTemp" Minimum="25" Maximum="65" Width="200" Style="{StaticResource TechSlider}"/>
+                        <Slider x:Name="sliderColorTemp" Minimum="25" Maximum="65" Width="200" Value="{Binding ElementName=txtColorTemp, Path=Text, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TechSlider}" ValueChanged="sliderColorTemp_ValueChanged"/>
                         <TextBox x:Name="txtColorTemp" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <Label Content="红色:" Width="80"/>
-                        <Slider x:Name="sliderRed" Minimum="0" Maximum="254" Width="200" Style="{StaticResource TechSlider}"/>
+                        <Slider x:Name="sliderRed" Minimum="0" Maximum="254" Width="200" Value="{Binding ElementName=txtRed, Path=Text, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TechSlider}" ValueChanged="sliderRed_ValueChanged"/>
                         <TextBox x:Name="txtRed" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <Label Content="绿色:" Width="80"/>
-                        <Slider x:Name="sliderGreen" Minimum="0" Maximum="254" Width="200" Style="{StaticResource TechSlider}"/>
+                        <Slider x:Name="sliderGreen" Minimum="0" Maximum="254" Width="200" Value="{Binding ElementName=txtGreen, Path=Text, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TechSlider}" ValueChanged="sliderGreen_ValueChanged"/>
                         <TextBox x:Name="txtGreen" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <Label Content="蓝色:" Width="80"/>
-                        <Slider x:Name="sliderBlue" Minimum="0" Maximum="254" Width="200" Style="{StaticResource TechSlider}"/>
+                        <Slider x:Name="sliderBlue" Minimum="0" Maximum="254" Width="200" Value="{Binding ElementName=txtBlue, Path=Text, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TechSlider}" ValueChanged="sliderBlue_ValueChanged"/>
                         <TextBox x:Name="txtBlue" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <Label Content="白色:" Width="80"/>
-                        <Slider x:Name="sliderWhite" Minimum="0" Maximum="254" Width="200" Style="{StaticResource TechSlider}"/>
+                        <Slider x:Name="sliderWhite" Minimum="0" Maximum="254" Width="200" Value="{Binding ElementName=txtWhite, Path=Text, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TechSlider}" ValueChanged="sliderWhite_ValueChanged"/>
                         <TextBox x:Name="txtWhite" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
                     </StackPanel>
                 </StackPanel>
@@ -114,12 +122,12 @@
         </GroupBox>
 
         <!-- 报文显示和发送区域 -->
-        <GroupBox Header="报文控制" Grid.Column="1" Grid.Row="1" Margin="5" Style="{StaticResource TechGroupBox}">
+        <GroupBox Header="指令发送" Grid.Column="2" Grid.Row="2" Margin="5,6,5,5" Style="{StaticResource TechGroupBox}">
             <StackPanel Orientation="Vertical" Margin="5">
                 <Label Content="完整报文：" FontWeight="Bold"/>
-                <TextBox x:Name="txtFullMessage" Height="100" Margin="0,5,0,0" 
+                <TextBox x:Name="txtFullMessage" Height="30" Margin="0,5,0,0" 
                          IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
-                         Style="{StaticResource TechTextBox}"/>
+                         Style="{StaticResource TechTextBox}" TextChanged="txtFullMessage_TextChanged"/>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <Label Content="发送间隔(ms):" Width="100"/>
@@ -127,19 +135,19 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button x:Name="btnSingleSend" Content="单次发送" Width="100" Style="{StaticResource TechButton}"/>
+                    <Button x:Name="btnSingleSend" Content="单次发送" Width="100" Style="{StaticResource TechButton}"   Click="btnSingleSend_Click_2"/>
                     <Button x:Name="btnContinuousSend" Content="连续发送" Width="100" Margin="10,0,0,0" Style="{StaticResource TechButton}"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
 
         <!-- 状态栏 -->
-        <StatusBar Grid.ColumnSpan="2" Grid.Row="2" Background="#FF333333">
+        <StatusBar Grid.ColumnSpan="3" Grid.Row="3" Background="Transparent">
+            <!-- 状态栏背景：深灰色 (#FF333333) -->
+            <!-- 文字颜色：白色 (在TextBlock.Foreground中定义) -->
             <StatusBarItem>
-                <TextBlock x:Name="txtStatus" Foreground="White"/>
+                <TextBlock x:Name="txtStatus" Foreground="Black"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>
 </Window>
-
-

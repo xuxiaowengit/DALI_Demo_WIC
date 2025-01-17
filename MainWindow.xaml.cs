@@ -61,6 +61,46 @@ namespace DALI_Demo_WIC
             sliderGreen.ValueChanged += UpdateLightParams;
             sliderBlue.ValueChanged += UpdateLightParams;
             sliderWhite.ValueChanged += UpdateLightParams;
+
+            // 验证控件是否启用
+            sliderFade.IsEnabled = true;
+            sliderBrightness.IsEnabled = true;
+            sliderColorTemp.IsEnabled = true;
+            sliderRed.IsEnabled = true;
+            sliderGreen.IsEnabled = true;
+            sliderBlue.IsEnabled = true;
+            sliderWhite.IsEnabled = true;
+
+
+            //滑动块数值处理???/**/
+            // 添加滑块值改变事件处理
+            sliderFade.ValueChanged += (s, e) => txtFade.Text = ((int)e.NewValue).ToString();
+            sliderBrightness.ValueChanged += (s, e) => txtBrightness.Text = ((int)e.NewValue).ToString();
+            sliderColorTemp.ValueChanged += (s, e) => txtColorTemp.Text = ((int)e.NewValue).ToString();
+            sliderRed.ValueChanged += (s, e) => txtRed.Text = ((int)e.NewValue).ToString();
+            sliderGreen.ValueChanged += (s, e) => txtGreen.Text = ((int)e.NewValue).ToString();
+            sliderBlue.ValueChanged += (s, e) => txtBlue.Text = ((int)e.NewValue).ToString();
+            sliderWhite.ValueChanged += (s, e) => txtWhite.Text = ((int)e.NewValue).ToString();
+
+
+            // 设置滑块默认值
+            sliderFade.Value = 1;
+            sliderBrightness.Value = 100;
+            sliderColorTemp.Value = 26;
+            sliderRed.Value = 110;
+            sliderGreen.Value = 130;
+            sliderBlue.Value = 150;
+            sliderWhite.Value = 200;
+
+            // 设置滑块属性
+            foreach (var slider in new[] { sliderFade, sliderBrightness, sliderColorTemp,
+                                     sliderRed, sliderGreen, sliderBlue, sliderWhite })
+            {
+                slider.IsSnapToTickEnabled = true;
+                slider.TickFrequency = 1;
+            }
+            // 绑定值改变事件
+       
         }
 
         private void InitializeTimer()
@@ -141,6 +181,9 @@ namespace DALI_Demo_WIC
                 message.Append(sliderGreen.Value.ToString("X2"));
                 message.Append(sliderBlue.Value.ToString("X2"));
                 message.Append(sliderWhite.Value.ToString("X2"));
+
+
+             
 
                 // 计算CRC16
                 string crc = CalculateCRC16(message.ToString());
@@ -223,6 +266,149 @@ namespace DALI_Demo_WIC
             {
                 txtStatus.Text = $"发送错误: {ex.Message}";
             }
+        }
+
+        private void btnSingleSend_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnSingleSend_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void sliderFade_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+      
+        private void txtFade_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+        private void sliderBrightness_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+        private void sliderColorTemp_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+        private void sliderRed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+        private void sliderGreen_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+        private void sliderBlue_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+        private void sliderWhite_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (sender is Slider slider)
+            {
+                // 获取对应的TextBox
+                string textBoxName = "txt" + slider.Name.Substring(6); // 去掉"slider"前缀
+                var textBox = this.FindName(textBoxName) as TextBox;
+
+                if (textBox != null)
+                {
+                    // 更新TextBox的值，转换为整数
+                    textBox.Text = ((int)slider.Value).ToString();
+                }
+            }
+        }
+
+        private void txtFullMessage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
