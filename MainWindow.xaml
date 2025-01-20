@@ -18,8 +18,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/TechStyles.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </Window.Resources>
 
     <Grid Margin="10" Background="{StaticResource WindowBackgroundBrush}"  >
@@ -60,20 +62,20 @@
         <GroupBox Header="报文格式设置" Grid.Column="2" Grid.Row="1" Margin="5,3,5,4" Style="{StaticResource TechGroupBox}">
             <StackPanel Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="设备ID:" Width="80"/>
-                    <TextBox x:Name="txtDeviceID" Width="50" MaxLength="2" Text="01"  Style="{StaticResource TechTextBox}"/>
-                    <Label Content="功能码:" Width="80" Margin="10,0,0,0"/> 
-                    <TextBox x:Name="txtFunctionCode" Width="50" MaxLength="2"   Text="10" Style="{StaticResource TechTextBox}"/>
+                    <Label Content="设备ID:" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtDeviceID" Width="100" MaxLength="2" Text="01" TextChanged="Control_ValueChanged"  Style="{StaticResource TechTextBox}"/>
+                    <Label Content="功能码:" Width="100" Margin="10,0,0,0"/>
+                    <TextBox x:Name="txtFunctionCode" Width="100" MaxLength="2" TextChanged="Control_ValueChanged"   Text="10" Style="{StaticResource TechTextBox}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Label Content="灯短地址:" Width="80"/>
-                    <TextBox x:Name="txtLampNumber" Width="100" MaxLength="4"  Text="01" Style="{StaticResource TechTextBox}"/>
-                    <Label Content="参数数量:" Width="80" Margin="10,0,0,0"/>
-                    <TextBox x:Name="txtParamCount" Width="100" MaxLength="4"  Text="07" Style="{StaticResource TechTextBox}"/>
+                    <Label Content="灯短地址:" Width="100"/>
+                    <TextBox x:Name="txtLampNumber" Width="100" MaxLength="4" TextChanged="Control_ValueChanged" Text="0081" Style="{StaticResource TechTextBox}"/>
+                    <Label Content="参数数量:" Width="100" Margin="10,0,0,0"/>
+                    <TextBox x:Name="txtParamCount" Width="100" MaxLength="4" TextChanged="Control_ValueChanged"  Text="0007" Style="{StaticResource TechTextBox}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Label Content="参数字节总数:" Width="80"/>
-                    <TextBox x:Name="txtByteCount" Width="50" MaxLength="2"  Text="0E" Style="{StaticResource TechTextBox}"/>
+                    <Label Content="参数字节总数:" Width="100"/>
+                    <TextBox x:Name="txtByteCount" Width="100" MaxLength="2"   Text="0E" Style="{StaticResource TechTextBox}" TextChanged="txtByteCount_TextChanged"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
@@ -91,6 +93,7 @@
                         <Label Content="亮度:" Width="80"/>
                         <Slider x:Name="sliderBrightness" Minimum="0" Maximum="254" Width="200"   Value="{Binding ElementName=txtBrightness, Path=Text, UpdateSourceTrigger=PropertyChanged}"   Style="{StaticResource TechSlider}" ValueChanged="sliderBrightness_ValueChanged"/>
                         <TextBox x:Name="txtBrightness" Width="50" Margin="10,0,0,0" Style="{StaticResource TechTextBox}"/>
+                        <CheckBox x:Name="chkBrightnessAuto" Content="自动循环"  Margin="10,0,0,0"  VerticalAlignment="Center"  Checked="chkBrightnessAuto_Checked"    Unchecked="chkBrightnessAuto_Unchecked"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                         <Label Content="色温:" Width="80"/>
@@ -127,16 +130,20 @@
                 <Label Content="完整报文：" FontWeight="Bold"/>
                 <TextBox x:Name="txtFullMessage" Height="30" Margin="0,5,0,0" 
                          IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
-                         Style="{StaticResource TechTextBox}" TextChanged="txtFullMessage_TextChanged"/>
+                         Style="{StaticResource TechTextBox}" />
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Label Content="发送间隔(ms):" Width="100"/>
-                    <TextBox x:Name="txtInterval" Width="100" Style="{StaticResource TechTextBox}"/>
+                    <Label Content="发送频率:" Width="100"/>
+                    <TextBox x:Name="txtInterval" Width="100" Text="100"    TextChanged="Control_ValueChanged " Style="{StaticResource TechTextBox}"/>
+                    <Label Content="ms" Width="100" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    
+
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button x:Name="btnSingleSend" Content="单次发送" Width="100" Style="{StaticResource TechButton}"   Click="btnSingleSend_Click_2"/>
-                    <Button x:Name="btnContinuousSend" Content="连续发送" Width="100" Margin="10,0,0,0" Style="{StaticResource TechButton}"/>
+                    <Button x:Name="btnComdData" Content="合计报文" Width="100" Style="{StaticResource TechButton}"   Click="Control_ValueChanged "/>
+                    <Button x:Name="btnSingleSend" Content="单次发送" Width="100" Style="{StaticResource TechButton}"   Click="btnSingleSend_Click"/>
+                    <Button x:Name="btnContinuousSend" Content="连续发送" Width="100" Margin="10,0,0,0" Style="{StaticResource TechButton}" Click="btnContinuousSend_Click"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
