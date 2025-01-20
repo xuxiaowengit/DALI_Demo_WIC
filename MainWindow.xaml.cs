@@ -52,7 +52,8 @@ namespace DALI_Demo_WIC
             // 绑定事件
             btnConnect.Click += BtnConnect_Click;
             btnSingleSend.Click += BtnSingleSend_Click;
-            btnContinuousSend.Click += BtnContinuousSend_Click;
+            btnContinuousSend.Click += btnContinuousSend_Click;
+            btnCloseSend.Click += btnCloseSend_Click;
 
             // 绑定参数变化事件
             txtDeviceID.TextChanged += UpdateMessage;
@@ -238,29 +239,29 @@ namespace DALI_Demo_WIC
             SendMessage();
         }
 
-        private void BtnContinuousSend_Click(object sender, RoutedEventArgs e)
-        {
-            if (isSendingContinuously)
-            {
-                sendTimer.Stop();
-                btnContinuousSend.Content = "连续发送";
-                isSendingContinuously = false;
-            }
-            else
-            {
-                if (int.TryParse(txtInterval.Text, out int interval) && interval > 0)
-                {
-                    sendTimer.Interval = TimeSpan.FromMilliseconds(interval);
-                    sendTimer.Start();
-                    btnContinuousSend.Content = "停止发送";
-                    isSendingContinuously = true;
-                }
-                else
-                {
-                    txtStatus.Text = "请输入有效的发送间隔时间";
-                }
-            }
-        }
+        //private void BtnContinuousSend_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (isSendingContinuously)
+        //    {
+        //        sendTimer.Stop();
+        //        btnContinuousSend.Content = "连续发送";
+        //        isSendingContinuously = false;
+        //    }
+        //    else
+        //    {
+        //        if (int.TryParse(txtInterval.Text, out int interval) && interval > 0)
+        //        {
+        //            sendTimer.Interval = TimeSpan.FromMilliseconds(interval);
+        //            sendTimer.Start();
+        //            btnContinuousSend.Content = "停止发送";
+        //            isSendingContinuously = true;
+        //        }
+        //        else
+        //        {
+        //            txtStatus.Text = "请输入有效的发送间隔时间";
+        //        }
+        //    }
+        //}
 
         private void SendTimer_Tick(object sender, EventArgs e)
         {
@@ -662,32 +663,7 @@ namespace DALI_Demo_WIC
 
 
         // 定时器发送事件
-        //private void SendTimer_Tick2(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (serialPort != null && serialPort.IsOpen)
-        //        {
-        //            string message = txtFullMessage.Text.Replace(" ", "");
-        //            byte[] bytes = new byte[message.Length / 2];
-        //            for (int i = 0; i < message.Length; i += 2)
-        //            {
-        //                bytes[i / 2] = Convert.ToByte(message.Substring(i, 2), 16);
-        //            }
-        //            serialPort.Write(bytes, 0, bytes.Length);
-        //        }
-        //        else
-        //        {
-        //            StopContinuousSending();
-        //            MessageBox.Show("串口已关闭，停止发送！");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        StopContinuousSending();
-        //        MessageBox.Show($"发送失败：{ex.Message}");
-        //    }
-        //}
+ 
 
         private void SendTimer_Tick2(object sender, EventArgs e)
         {
@@ -741,7 +717,7 @@ namespace DALI_Demo_WIC
 
 
 
-        // 连续发送按钮事件
+        // 连续发送按钮事件 btnContinuousSend_Click
         private void btnContinuousSend_Click(object sender, RoutedEventArgs e)
         {
 
@@ -752,7 +728,6 @@ namespace DALI_Demo_WIC
             if (isSendingContinuously)
             {
                 Console.WriteLine($"停止连续发送{isSendingContinuously}");
-                serialPort.Close();
                 StopContinuousSending();
 
                
@@ -847,6 +822,17 @@ namespace DALI_Demo_WIC
             }
         }
 
-
+        private void btnCloseSend_Click(object sender, RoutedEventArgs e)
+        {
+            serialPort.Close();
+            btnConnect.Content = "连接";
+            txtStatus.Text = "串口已断开";
+            btnConnect.Style = (Style)FindResource("DisconnectButtonStyle");
+            isSendingContinuously = false;
+            btnContinuousSend.Content = "连续发送";
+            btnContinuousSend.Style = (Style)FindResource("DisconnectButtonStyle");
+            sendTimer2.Interval = TimeSpan.FromMilliseconds(0);
+            sendTimer2.Stop();
+        }
     }
 }

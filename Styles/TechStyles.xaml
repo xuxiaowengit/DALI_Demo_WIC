@@ -231,6 +231,19 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Style.Triggers>
+            <!-- 鼠标悬浮效果 -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BoxGroupTextColor}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <!-- 鼠标按下效果 -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource BoxGroupTextColor}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="DisconnectButtonStyle" TargetType="Button">
@@ -255,6 +268,18 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <!-- 鼠标悬浮效果 -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BoxGroupTextColor}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <!-- 鼠标按下效果 -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource BoxGroupTextColor}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

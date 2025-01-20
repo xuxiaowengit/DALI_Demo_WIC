@@ -144,6 +144,8 @@
                     <Button x:Name="btnComdData" Content="合计报文" Width="100" Style="{StaticResource TechButton}"   Click="Control_ValueChanged "/>
                     <Button x:Name="btnSingleSend" Content="单次发送" Width="100" Style="{StaticResource TechButton}"   Click="btnSingleSend_Click"/>
                     <Button x:Name="btnContinuousSend" Content="连续发送" Width="100" Margin="10,0,0,0" Style="{StaticResource TechButton}" Click="btnContinuousSend_Click"/>
+                    <Button x:Name="btnCloseSend" Content="停止发送" Width="100" Style="{StaticResource TechButton}" Click="btnCloseSend_Click"/>
+                    <!--<Button x:Name="btnContinuousSendC" Content="停止发送" Width="100" Style="{StaticResource TechButton}"  />-->
                 </StackPanel>
             </StackPanel>
         </GroupBox>
